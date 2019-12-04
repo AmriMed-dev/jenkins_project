@@ -45,21 +45,29 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	}
 	
 	
-	public boolean authentificate(String username){
-		//User user = userDao.findByUsername(username);
-		User user = userDao.findByUsername(username);
-		//UserDetails user = null;
-		if(user == null){
-			
-			System.out.println("400 Error");
-			return false ;
-			
-		}
-		
-		System.out.println("200 Success");
-		return true;
-		
-	}
+
+	public boolean authentificate(String userName, String userPassword){
+        if((userName.equals("admin")) && (userPassword.equals("1234"))){
+            System.out.println("bien s'authentifie");
+            return true;
+        }
+        if((userName.equals("admin")) && (!userPassword.equals("1234"))){
+            System.out.println("Invalid password");
+            return false;
+        }
+        if((!userName.equals("admin")) && (userPassword.equals("1234"))){
+            System.out.println("Invalid username");
+            return false;
+        }
+        else{
+          
+            System.out.println("Invalid username or password");
+        	return false;
+        	//jacoco kuvritch
+        }
+	
+       
+    }
 
 	private List<SimpleGrantedAuthority> getAuthority() {
 		return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
